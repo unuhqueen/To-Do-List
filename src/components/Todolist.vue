@@ -6,13 +6,14 @@
         <input
           type="text"
           v-model="todoText"
-          class="md:border-2 rounded-lg md:mt-8 md:mb-4 md:p-1 w-1/3"
+          class="md:border-2 rounded-lg md:mt-8 md:mb-4 md:p-1 w-1/4"
           @keyup.enter="addTodo"
           placeholder="할 일을 입력하세요"
         />
         <button
           v-on:click="addTodo"
           class="border bg-gray-200 md:m-3 md:px-3 md:py-1 rounded-lg"
+          @click="addTodo"
         >
           입력
         </button>
@@ -49,7 +50,7 @@
           </tbody>
         </table>
       </div>
-      <span v-for="i in totalPage" :key="i" @click="movePage(i)">{{ i }}</span>
+      <span class="p-2 pointer" v-for="i in totalPage" :key="i" @click="movePage(i)">{{ i }}</span>
     </div>
   </div>
 </template>
@@ -80,6 +81,9 @@ export default {
     deleteTodo(id) {
       this.$emit("deleteTodo", id);
     },
+    movePage(page) {
+      this.$emit("movePage", page);  
+    }
     // changeCount() {
     //   this.$emit("changeCount", this.pageNum, this.count);
     // },

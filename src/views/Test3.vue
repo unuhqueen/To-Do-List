@@ -4,6 +4,7 @@
     @deleteTodo="deleteTodo"
     @addTodo="addTodo"
     :totalPage="totalPage"
+    @movePage="movePage"
   />
 </template>
 
@@ -20,8 +21,9 @@ export default {
     return {
       todos: [],
       page: 1,
-      limit: 5,
+      limit: 10,
       totalPage: 0,
+      totalCount: 0
     };
   },
   methods: {
@@ -33,36 +35,34 @@ export default {
         "http://localhost:3000/todos?_sort=id&_order=desc&_page=${this.page}&_limit=${this.limit}"
       );
       this.todos = responseData.data;
-      const totalCount = parseInt(this.todos.headers["x-total-count"]);
+      this.totalCount = responseData.headers['x-total-count'];
       const totalPage = () => {
-        if (totalCount % this.limit != 0) {
-          this.totalPage = parseInt(totalCount / this.limit) + 1;
-        } else {
-          this.totalPage = parseInt(totalCount / this.limit);
+        if (this.totalCount % this.limit != 0) {
+          this.totalPage = parseInt(this.totalCount / this.limit) + 1;
+        } else if (this.totalCount % this.limit === 0) {
+          this.totalPage = parseInt(this.totalCount / this.limit);
         }
       };
       totalPage();
-
+      this.todos = responseData.data;
       //this.listArray = responseData.data;
     },
-    async addTodo(todoText, done) {
+    async addTodo(todoText) {
       //공백일 경우
       if (!todoText) return;
 
       const todoObj = {
         text: todoText,
-        checked: done,
       };
       //todoText: 입력값
       //text는 key, this.todoText는 value
-      await axios.post("http://localhost:3000/todos", todoObj).then(() => {
-        todoText = "";
-        this.getTodos();
-      });
+      await axios.post("http://localhost:3000/todos", todoObj);
+      todoText = '';
+      this.getTodos();
     },
     async deleteTodo(todo) {
       await axios.delete(`http://localhost:3000/todos/${todo}`);
-      if (totalCount % this.limit === 1) {
+      if (this.totalCount % this.limit === 1) {
         this.page = this.totalPage - 1;
       }
       this.getTodos();
@@ -83,6 +83,7 @@ export default {
     movePage(page) {
       this.page = page;
       this.getTodos();
+      console.log("clicked");
     },
   },
 };
