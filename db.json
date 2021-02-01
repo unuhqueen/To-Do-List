@@ -191,14 +191,14 @@
       "id": 56
     },
     {
-      "text": "ㄴㅇ",
-      "isChecked": false,
-      "id": 57
-    },
-    {
       "text": "바버",
       "isChecked": false,
       "id": 59
+    },
+    {
+      "text": "바버",
+      "isChecked": [],
+      "id": 60
     }
   ]
 }

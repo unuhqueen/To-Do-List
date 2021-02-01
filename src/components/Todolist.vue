@@ -62,8 +62,8 @@
                 <input
                   type="checkbox"
                   :key="todo.id"
-                  v-on:change="completeTask(todo)"
-                  v-bind:checked="todo.isComplete"
+                  v-model="todo.isChecked"
+                  :class="classObject(todo)"
                 />
               </td>
               <td class="md:py-2 md:border-l-4">
@@ -100,13 +100,12 @@ export default {
   data() {
     return {
       todoText: "",
-      checkedValue: [],
       searchText: "",
     };
   },
   methods: {
     addTodo() {
-      this.$emit("addTodo", this.todoText, this.checkedValue);
+      this.$emit("addTodo", this.todoText);
       this.todoText = "";
     },
     deleteTodo(id) {
@@ -119,8 +118,8 @@ export default {
       this.$emit("getTodos", this.searchText);
       this.searchText = "";
     },
-    completeTask(todo) {
-      this.$emit("completeTask", todo);
+    classObject(todo) {
+      this.$emit("classObject", todo);
     },
     // changeCount() {
     //   this.$emit("changeCount", this.pageNum, this.count);

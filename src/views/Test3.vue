@@ -6,7 +6,7 @@
     :totalPage="totalPage"
     @getTodos="getTodos"
     @movePage="movePage"
-    @completeTask="completeTask"
+    @classObject="classObject"
   />
 </template>
 
@@ -57,13 +57,13 @@ export default {
       this.todos = responseData.data;
       //this.listArray = responseData.data;
     },
-    async addTodo(todoText, checkedValue) {
+    async addTodo(todoText) {
       //공백일 경우
       if (!todoText) return;
 
       const todoObj = {
         text: todoText,
-        isChecked: checkedValue,
+        isChecked: false,
       };
       //todoText: 입력값
       //text는 key, this.todoText는 value
@@ -93,8 +93,10 @@ export default {
       this.page = page;
       this.getTodos();
     },
-    completeTask(todo) {
-      todo.isComplete = !todo.isComplete;
+    classObject(todo) {
+      return {
+        "line-through": todo.isChecked === true,
+      };
     },
   },
 };
