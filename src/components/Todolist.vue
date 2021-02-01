@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="mx-auto w-1/2 md:text-5xl md:py-4 font-bold">To-Do List</p>
+    <p class="mx-auto w-1/2 md:text-5xl md:py-4 font-bold">
+      <a href="/test3"> To-Do List</a>
+    </p>
     <div class="grid-cols-1">
       <div class="mx-auto w-1/2 text-left">
         <input
@@ -11,11 +13,23 @@
           placeholder="할 일을 입력하세요"
         />
         <button
-          v-on:click="addTodo"
           class="border bg-gray-200 md:m-3 md:px-3 md:py-1 rounded-lg"
           @click="addTodo"
         >
           입력
+        </button>
+        <input
+          type="text"
+          v-model="searchText"
+          class="md:border-2 rounded-lg md:mt-8 md:mb-4 md:p-1 w-1/4"
+          @keyup.enter="getTodos"
+          placeholder="할 일을 검색하세요"
+        />
+        <button
+          @click="getTodos"
+          class="border bg-gray-200 md:m-3 md:px-3 md:py-1 rounded-lg"
+        >
+          검색
         </button>
         <!--<select
           @change="changeCount"
@@ -35,8 +49,9 @@
           <thead>
             <tr>
               <th class="md:py-2 md:border-b-4 md:border-r-4 w-1/12">순서</th>
-              <th class="md:py-2 md:border-b-4  w-10/12">할 일</th>
-              <th class="md:py-2 w-1/12 md:border-b-4 md:border-l-4"></th>
+              <th class="md:py-2 md:border-b-4  w-9/12">할 일</th>
+              <th class="md:py-2 w-1/12 md:border-b-4 md:border-l-4">완료</th>
+              <th class="md:py-2 w-1/12 md:border-b-4 md:border-l-4">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -44,13 +59,27 @@
               <td class="md:py-2 md:border-r-4">{{ todo.id }}</td>
               <td class="md:p-2 md:border-l-4 text-left">{{ todo.text }}</td>
               <td class="md:py-2 md:border-l-4">
+                <input
+                  type="checkbox"
+                  :key="todo.id"
+                  v-on:change="completeTask(todo)"
+                  v-bind:checked="todo.isComplete"
+                />
+              </td>
+              <td class="md:py-2 md:border-l-4">
                 <button v-on:click="deleteTodo(todo.id)">&times;</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <span class="p-2 pointer" v-for="i in totalPage" :key="i" @click="movePage(i)">{{ i }}</span>
+      <span
+        class="md:p-2 md:my-16 cursor-pointer"
+        v-for="i in totalPage"
+        :key="i"
+        @click="movePage(i)"
+        >{{ i }}</span
+      >
     </div>
   </div>
 </template>
@@ -71,19 +100,28 @@ export default {
   data() {
     return {
       todoText: "",
-      done: false,
+      checkedValue: [],
+      searchText: "",
     };
   },
   methods: {
     addTodo() {
-      this.$emit("addTodo", this.todoText, this.done);
+      this.$emit("addTodo", this.todoText, this.checkedValue);
+      this.todoText = "";
     },
     deleteTodo(id) {
       this.$emit("deleteTodo", id);
     },
     movePage(page) {
-      this.$emit("movePage", page);  
-    }
+      this.$emit("movePage", page);
+    },
+    getTodos() {
+      this.$emit("getTodos", this.searchText);
+      this.searchText = "";
+    },
+    completeTask(todo) {
+      this.$emit("completeTask", todo);
+    },
     // changeCount() {
     //   this.$emit("changeCount", this.pageNum, this.count);
     // },
@@ -92,4 +130,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+input,
+button,
+select:focus {
+  outline: none;
+}
+</style>
