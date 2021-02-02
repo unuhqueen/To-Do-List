@@ -6,7 +6,8 @@
     :totalPage="totalPage"
     @getTodos="getTodos"
     @movePage="movePage"
-    @classObject="classObject"
+    @checkTodo="checkTodo"
+    @selectLimit="selectLimit"
   />
 </template>
 
@@ -77,11 +78,6 @@ export default {
       }
       this.getTodos();
     },
-    /*async searchTodo(searchText) {
-      console.log(searchText);
-      await axios.get(`http://localhost:3000/todos?text_like=${searchText}`);
-      this.getTodos();
-    }*/
     /*async changeCount(pageNum, count) {
       const req = await axios.get(
         `http://localhost:3000/todos?_page=${pageNum}&_limit=${count}`
@@ -93,10 +89,13 @@ export default {
       this.page = page;
       this.getTodos();
     },
-    classObject(todo) {
-      return {
-        "line-through": todo.isChecked === true,
-      };
+    async checkTodo(todo) {
+      if (!todo) return;
+      await axios.patch(`http://localhost:3000/todos/${todo.id}`);
+    },
+    selectLimit(selectedNum) {
+      this.limit = selectedNum;
+      this.getTodos();
     },
   },
 };

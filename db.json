@@ -60,11 +60,6 @@
       "id": 28
     },
     {
-      "text": "sdfsdf",
-      "checked": false,
-      "id": 29
-    },
-    {
       "text": "dfsdf",
       "checked": false,
       "id": 30
@@ -133,72 +128,8 @@
       "id": 44
     },
     {
-      "text": "할일",
-      "id": 45
-    },
-    {
       "text": "메롱",
       "id": 46
-    },
-    {
-      "text": "sdf",
-      "done": false,
-      "id": 47
-    },
-    {
-      "text": "바버",
-      "isChecked": false,
-      "id": 48
-    },
-    {
-      "text": "바버메렁",
-      "isChecked": false,
-      "id": 49
-    },
-    {
-      "text": "바버메롱",
-      "isChecked": false,
-      "id": 50
-    },
-    {
-      "text": "ㄴㅇㄹ",
-      "isChecked": false,
-      "id": 51
-    },
-    {
-      "text": "ㄴㅇㄹㄴㅇ",
-      "isChecked": false,
-      "id": 52
-    },
-    {
-      "text": "ㄴㅇㄹ",
-      "isChecked": false,
-      "id": 53
-    },
-    {
-      "text": "ㄴㅇㄹ",
-      "isChecked": false,
-      "id": 54
-    },
-    {
-      "text": "ㄴㅇㄹㄴㅇㄹㄴㅇ",
-      "isChecked": false,
-      "id": 55
-    },
-    {
-      "text": "ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴ",
-      "isChecked": false,
-      "id": 56
-    },
-    {
-      "text": "바버",
-      "isChecked": false,
-      "id": 59
-    },
-    {
-      "text": "바버",
-      "isChecked": [],
-      "id": 60
     }
   ]
 }

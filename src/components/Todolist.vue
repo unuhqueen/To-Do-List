@@ -3,7 +3,7 @@
     <p class="mx-auto w-1/2 md:text-5xl md:py-4 font-bold">
       <a href="/test3"> To-Do List</a>
     </p>
-    <div class="grid-cols-1">
+    <div class="grid-cols-1 md:mb-8">
       <div class="mx-auto w-1/2 text-left">
         <input
           type="text"
@@ -31,17 +31,17 @@
         >
           검색
         </button>
-        <!--<select
-          @change="changeCount"
-          v-model="count"
+        <select
+          v-model="selectedNum"
+          @change="selectLimit"
           class="border rounded-lg"
           name="numberOfLists"
           id="num-list"
         >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>-->
+          <option v-for="pageNum in pageNums" :key="pageNum">{{
+            pageNum
+          }}</option>
+        </select>
       </div>
 
       <div>
@@ -57,13 +57,17 @@
           <tbody>
             <tr v-for="todo in list" :key="todo.id">
               <td class="md:py-2 md:border-r-4">{{ todo.id }}</td>
-              <td class="md:p-2 md:border-l-4 text-left">{{ todo.text }}</td>
+              <td
+                class="md:p-2 md:border-l-4 text-left"
+                :class="{ 'line-through': todo.isChecked }"
+              >
+                {{ todo.text }}
+              </td>
               <td class="md:py-2 md:border-l-4">
                 <input
                   type="checkbox"
-                  :key="todo.id"
                   v-model="todo.isChecked"
-                  :class="classObject(todo)"
+                  @click="checkTodo(todo)"
                 />
               </td>
               <td class="md:py-2 md:border-l-4">
@@ -73,14 +77,14 @@
           </tbody>
         </table>
       </div>
-      <span
-        class="md:p-2 md:my-16 cursor-pointer"
-        v-for="i in totalPage"
-        :key="i"
-        @click="movePage(i)"
-        >{{ i }}</span
-      >
     </div>
+    <span
+      class="md:p-2 cursor-pointer"
+      v-for="i in totalPage"
+      :key="i"
+      @click="movePage(i)"
+      >{{ i }}</span
+    >
   </div>
 </template>
 
@@ -101,6 +105,8 @@ export default {
     return {
       todoText: "",
       searchText: "",
+      selectedNum: 10,
+      pageNums: [10, 20, 30],
     };
   },
   methods: {
@@ -118,8 +124,12 @@ export default {
       this.$emit("getTodos", this.searchText);
       this.searchText = "";
     },
-    classObject(todo) {
-      this.$emit("classObject", todo);
+    checkTodo(todo) {
+      this.$emit("checkTodo", todo);
+    },
+    selectLimit() {
+      console.log(this.selectedNum);
+      this.$emit("selectLimit", this.selectedNum);
     },
     // changeCount() {
     //   this.$emit("changeCount", this.pageNum, this.count);
