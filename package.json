@@ -1,4 +1,5 @@
 {
+  "homepage": "https://unuhqueen.github.io/to-do-list/",
   "name": "edu001",
   "version": "0.1.0",
   "private": true,
@@ -6,7 +7,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",

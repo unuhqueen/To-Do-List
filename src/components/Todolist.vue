@@ -34,7 +34,7 @@
         <select
           v-model="selectedNum"
           @change="selectLimit"
-          class="border rounded-lg"
+          class="border rounded-lg md:px-3 md:py-1"
           name="numberOfLists"
           id="num-list"
         >

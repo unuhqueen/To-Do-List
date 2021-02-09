@@ -124,12 +124,24 @@
       "id": 43
     },
     {
-      "text": "sdc",
+      "text": "바버",
+      "isChecked": false,
       "id": 44
     },
     {
-      "text": "메롱",
+      "text": "바버메렁",
+      "isChecked": false,
+      "id": 45
+    },
+    {
+      "text": "메렁바버",
+      "isChecked": false,
       "id": 46
+    },
+    {
+      "text": "바버버",
+      "isChecked": false,
+      "id": 47
     }
   ]
 }
